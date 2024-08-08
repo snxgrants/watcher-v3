@@ -72,22 +72,22 @@ const Header = () => {
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link href="/actions" passHref>
+              <Link href="/perps/actions" passHref>
                 Actions
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link href="/markets" passHref>
+              <Link href="/perps/markets" passHref>
                 Markets
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link href="/positions" passHref>
+              <Link href="/perps/positions" passHref>
                 Positions
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link href="/liquidations" passHref>
+              <Link href="/perps/liquidations" passHref>
                 Liquidations
               </Link>
             </MenuItem>
@@ -100,22 +100,22 @@ const Header = () => {
             </Link>
           </Box>
           <Box style={activeStyle}>
-            <Link href="/actions" passHref>
+            <Link href="/perps/actions" passHref>
               Actions
             </Link>
           </Box>
           <Box style={activeStyle}>
-            <Link href="/markets" passHref>
+            <Link href="/perps/markets" passHref>
               Markets
             </Link>
           </Box>
           <Box style={activeStyle}>
-            <Link href="/positions" passHref>
+            <Link href="/perps/positions" passHref>
               Positions
             </Link>
           </Box>
           <Box style={activeStyle}>
-            <Link href="/liquidations" passHref>
+            <Link href="/perps/liquidations" passHref>
               Liquidations
             </Link>
           </Box>

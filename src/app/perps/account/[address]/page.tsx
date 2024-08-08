@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
-const AccountPage = () => {
+const PerpsAccountPage = () => {
   const { address } = useParams();
 
   return (
@@ -13,4 +13,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default PerpsAccountPage;
