@@ -3,135 +3,96 @@
 import {
   Flex,
   Text,
-  Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Box,
   Button,
   Input,
+  Image,
+  Show,
 } from '@chakra-ui/react';
 import { HamburgerIcon, StarIcon, SettingsIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { SNXIcon } from '../Icons';
+import { useState, useEffect } from 'react';
+import HamburgerMenu from 'react-hamburger-menu';
+import Menu from '../Menu';
 
-const Header = () => {
-  const activeStyle = {
-    fontWeight: 'bold',
-    fontSize: '14px',
-  };
+export default function Header() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const inactiveStyle = {
-    fontWeight: 'bold',
-    fontSize: '14px',
-    color: 'gray',
-  };
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.classList.add('stop-scrolling');
+    } else {
+      document.documentElement.classList.remove('stop-scrolling');
+    }
+  }, [isOpen]);
 
   return (
     <Flex
       as="header"
-      px={{ base: '16px', md: '40px' }}
-      py={2}
-      bg="navy.900"
-      height="65px"
+      minH="64px"
       alignItems="center"
-      justifyContent="space-between"
-      borderBottomWidth="1px"
+      justifyContent="center"
+      minW="100%"
+      bg="navy.900"
       borderBottomColor="gray.900"
-      borderTopWidth="1px"
-      borderTopColor="transparent"
+      borderBottomWidth="1px"
+      borderBottomStyle="solid"
+      zIndex={9999}
+      position={{ base: 'fixed' }}
     >
-      <Flex alignItems="center" sx={{ gap: { base: '8px', md: '24px' } }}>
-        <Link href="/" passHref>
-          <Flex alignItems="center" cursor="pointer">
-            <SNXIcon fill="cyan.400" />
-            <Text
-              ml="10px"
-              fontSize="lg"
-              fontWeight="bold"
-              display={{ base: 'none', c900: 'initial' }}
-            >
-              Watcher
-            </Text>
-          </Flex>
+      <Flex
+        w="100%"
+        alignItems="center"
+        justifyContent={{ base: 'center', xl: 'space-between' }}
+        maxW={{
+          base: '100%',
+          md: '48rem',
+          lg: '62rem',
+          xl: '80rem',
+          '2xl': '96rem',
+        }}
+        px="24px"
+        gap="16px"
+      >
+        <Link href="/">
+          <Image
+            src="/snx.svg"
+            width={200}
+            height={12}
+            cursor="pointer"
+            mr={{ base: '', xl: '32px' }}
+            alt="logo"
+          />
         </Link>
-        <Menu>
-          <MenuButton
-            as={Button}
-            bg="transparent"
-            border="none"
-            _hover={{ bg: 'transparent' }}
-            _focus={{ outline: 'none' }}
+        {/* if using below="xl" we will see both, menu and hamburger menu */}
+        <Show breakpoint="(max-width: 1279px)">
+          <Box
+            cursor="pointer"
+            userSelect="none"
+            top="25px"
+            left="20px"
+            position={isOpen ? 'fixed' : 'absolute'}
+            zIndex="999"
           >
-            Perps V3 <HamburgerIcon />
-          </MenuButton>
-          <MenuList>
-            <MenuItem>
-              <Link href="/" passHref>
-                Dashboard
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/perps/actions" passHref>
-                Actions
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/perps/markets" passHref>
-                Markets
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/perps/positions" passHref>
-                Positions
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link href="/perps/liquidations" passHref>
-                Liquidations
-              </Link>
-            </MenuItem>
-          </MenuList>
-        </Menu>
-        <Flex as="nav" sx={{ gap: '24px' }}>
-          <Box style={activeStyle}>
-            <Link href="/" passHref>
-              Dashboard
-            </Link>
+            <HamburgerMenu
+              isOpen={isOpen}
+              menuClicked={() => setIsOpen(!isOpen)}
+              width={22}
+              height={16}
+              strokeWidth={2}
+              rotate={0}
+              color="white"
+              borderRadius={0}
+              animationDuration={0.3}
+            />
           </Box>
-          <Box style={activeStyle}>
-            <Link href="/perps/actions" passHref>
-              Actions
-            </Link>
-          </Box>
-          <Box style={activeStyle}>
-            <Link href="/perps/markets" passHref>
-              Markets
-            </Link>
-          </Box>
-          <Box style={activeStyle}>
-            <Link href="/perps/positions" passHref>
-              Positions
-            </Link>
-          </Box>
-          <Box style={activeStyle}>
-            <Link href="/perps/liquidations" passHref>
-              Liquidations
-            </Link>
-          </Box>
-        </Flex>
-      </Flex>
-      <Flex justifyContent="flex-end" alignItems="center" sx={{ gap: '16px' }}>
-        <Input placeholder="Search by ENS / address" width="200px" />
-        <Button variant="ghost">
-          <StarIcon />
-        </Button>
-        <Button variant="ghost">
-          <SettingsIcon />
-        </Button>
+        </Show>
+        <Menu isOpen={isOpen} data-test-id="header-menu" />
       </Flex>
     </Flex>
   );
-};
-
-export default Header;
+}
