@@ -1,15 +1,14 @@
 // import axios from 'axios';
 import dayjs from 'dayjs';
-import '@/api/mockIntegrator.json'
-import axios from "axios";
+import mockIntegrators  from '@/api/mockIntegrator.json'
 // const INTEGRATORS_VOLUME_URL = 'https://dummyjson.com/c/cb60-184a-4d70-bc63';
 
 export default async function fetchIntegratorsData() {
   try {
-    const { data } = await axios.get<IntegratorStatsData[]>(
-        './mockIntegrator.json'
-    );
-    // const data = mockIntegrators as IntegratorStatsData[];
+    // const { data } = await axios.get<IntegratorStatsData[]>(
+    //     './mockIntegrator.json'
+    // );
+    const data = mockIntegrators as IntegratorStatsData[];
     const integratorsVolume = data.sort(
         (a, b) => dayjs(b.date).utc().valueOf() - dayjs(a.date).utc().valueOf()
     );
